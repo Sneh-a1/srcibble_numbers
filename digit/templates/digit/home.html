@@ -1,0 +1,65 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% tailwind_css %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<title>Digit project</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+<style>
+.quicksand-appfont {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+</style>
+</head>
+
+{% block hero %}
+<body>
+    <main class="quicksand-appfont min-h-screen bg-green-100 flex items-center justify-center px-6">
+        <div class="flex items-center justify-center gap-8 text-green-600">
+            <div class="flex flex-col items-center justify-center text-center">
+                <h1 class="text-4xl font-semibold">Welcome to Scribble the Number</h1>
+                <a href="{% url 'scribble' %}" class="mt-4 px-6 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors inline-block outline">
+                    Start
+                </a>
+            </div>
+
+            <svg width="180" height="180" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Penguin with glasses and pencil">
+                <ellipse cx="110" cy="122" rx="58" ry="70" fill="#1f2937" />
+                <ellipse cx="110" cy="132" rx="38" ry="48" fill="#f3f4f6" />
+                <circle cx="92" cy="108" r="9" fill="#111827" />
+                <circle cx="128" cy="108" r="9" fill="#111827" />
+                <circle cx="92" cy="108" r="14" fill="none" stroke="#6b7280" stroke-width="4" />
+                <circle cx="128" cy="108" r="14" fill="none" stroke="#6b7280" stroke-width="4" />
+                <line x1="106" y1="108" x2="114" y2="108" stroke="#6b7280" stroke-width="4" />
+                <polygon points="110,118 100,132 120,132" fill="#f59e0b" />
+                <ellipse cx="88" cy="171" rx="14" ry="8" fill="#f59e0b" />
+                <ellipse cx="132" cy="171" rx="14" ry="8" fill="#f59e0b" />
+                <rect x="155" y="78" width="8" height="70" rx="3" fill="#fbbf24" transform="rotate(-25 155 78)" />
+                <polygon points="147,149 161,142 168,158 154,165" fill="#fbbf24" />
+                <polygon points="168,158 174,166 163,170" fill="#111827" />
+                <polygon points="146,74 155,70 159,79 150,83" fill="#fca5a5" />
+            </svg>
+        </div>
+    </main>
+</body>
+
+{% endblock hero %}
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>
+
