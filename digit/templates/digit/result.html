@@ -1,0 +1,50 @@
+{% extends 'digit/home.html' %}
+
+{% block hero %}
+<div class="quicksand-appfont min-h-screen bg-green-100 flex flex-col items-center justify-center px-6 py-8 relative">
+    <a href="{% url 'home' %}" class="absolute top-6 left-6 px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-50 transition-colors flex items-center gap-2 font-semibold">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+        </svg>
+        Home
+    </a>
+
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full">
+        {% if is_correct %}
+        <div class="text-center mb-6">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-4xl font-bold text-green-600 mb-2">Correct!</h2>
+            <p class="text-xl text-gray-700">You drew <span class="font-bold text-pink-400 capitalize">{{ target_text }}</span> correctly!</p>
+        </div>
+        {% else %}
+        <div class="text-center mb-6">
+            <div class="text-6xl mb-4">❌</div>
+            <h2 class="text-4xl font-bold text-red-600 mb-2">Oops!</h2>
+            <p class="text-xl text-gray-700 mb-2">You were asked to draw <span class="font-bold text-pink-400 capitalize">{{ target_text }}</span></p>
+            <p class="text-xl text-gray-700">But the model predicted <span class="font-bold text-purple-400 capitalize">{{ predicted_text }}</span></p>
+        </div>
+        {% endif %}
+
+        <div class="border-t border-gray-200 pt-6 mb-6">
+            <div class="text-center">
+                <p class="text-lg text-gray-600">Your Score</p>
+                <p class="text-3xl font-bold text-green-600">{{ score }} / {{ total }}</p>
+                <p class="text-sm text-gray-500 mt-1">{{ score|floatformat:0 }} correct out of {{ total }} attempts</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'scribble' %}" class="px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-center font-semibold">
+                Draw Again
+            </a>
+            <a href="{% url 'home' %}" class="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-center font-semibold">
+                Back to Home
+            </a>
+        </div>
+
+        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+            <p class="text-center text-gray-700">Next number: <span class="font-bold text-pink-400 capitalize">{{ next_target_text }}</span></p>
+        </div>
+    </div>
+</div>
+{% endblock hero %}

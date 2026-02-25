@@ -4,7 +4,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('digit',include('digit.urls')),
+    path('digit/',include('digit.urls')),
 ]
 
 if settings.DEBUG:
