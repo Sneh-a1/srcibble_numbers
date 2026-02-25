@@ -1,12 +1,15 @@
 import numpy as np
 import base64
 import io
+from functools import lru_cache
 from PIL import Image, ImageOps, ImageFilter
 from tensorflow.keras.models import load_model
 from django.conf import settings
 
-# Load model once when server starts
-model = load_model(str(settings.BASE_DIR / "model" / "digit_model.h5"))
+
+@lru_cache(maxsize=1)
+def get_model():
+    return load_model(str(settings.BASE_DIR / "model" / "digit_model.h5"))
 
 
 def preprocess_image(base64_image, debug=False):
@@ -68,6 +71,7 @@ def preprocess_image(base64_image, debug=False):
 
 
 def predict_digit(processed_image):
+    model = get_model()
     prediction = model.predict(processed_image, verbose=0)
     digit = np.argmax(prediction)
     return digit
