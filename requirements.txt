@@ -1,8 +1,8 @@
-Django==6.0.2
+Django==5.2.1
 whitenoise==6.9.0
 django-tailwind==4.4.2
 django-browser-reload==1.21.0
-numpy==2.3.4
+numpy==1.26.4
 Pillow==11.3.0
-tensorflow==2.20.0
+tensorflow==2.15.0
 gunicorn==25.1.0
