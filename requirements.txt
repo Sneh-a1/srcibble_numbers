@@ -1,6 +1,6 @@
 Django==5.2.1
 whitenoise==6.9.0
-django-tailwind==4.4.2
+django-tailwind
 django-browser-reload==1.21.0
 numpy==1.26.4
 Pillow==11.3.0
