@@ -9,7 +9,8 @@ from django.conf import settings
 
 @lru_cache(maxsize=1)
 def get_model():
-    return load_model(str(settings.BASE_DIR / "model" / "digit_model.h5"))
+    return load_model(str(settings.BASE_DIR / "model" / "digit_model.h5"), compile = False)
+  
 
 
 def preprocess_image(base64_image, debug=False):

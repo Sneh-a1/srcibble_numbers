@@ -13,6 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("1", "true", "yes", "on")
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
+
 if not SECRET_KEY:
     if DEBUG:
         SECRET_KEY = "dev-only-insecure-key-change-me"
