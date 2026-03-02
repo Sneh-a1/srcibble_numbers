@@ -1,10 +1,8 @@
 {% extends 'digit/home.html' %}
 
-
-{% csrf_token %}
-
 {% block hero %}
 <div class="quicksand-appfont min-h-screen bg-green-100 flex flex-col items-center justify-center px-6 py-8 relative">
+    {% csrf_token %}
     <a href="{% url 'home' %}" class="absolute top-6 left-6 px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-50 transition-colors flex items-center gap-2 font-semibold">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
@@ -41,15 +39,60 @@
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
 
+    function isValidCsrfToken(token) {
+        return typeof token === 'string' && (token.length === 32 || token.length === 64);
+    }
+
+    function getCsrfToken() {
+        const csrfTokenInput = document.querySelector('[name=csrfmiddlewaretoken]');
+        const tokenFromInput = csrfTokenInput ? csrfTokenInput.value : '';
+        if (isValidCsrfToken(tokenFromInput)) {
+            return tokenFromInput;
+        }
+
+        const tokenFromCookie = getCookie('csrftoken');
+        if (isValidCsrfToken(tokenFromCookie)) {
+            return tokenFromCookie;
+        }
+
+        return '';
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+            return parts.pop().split(';').shift();
+        }
+        return '';
+    }
+
+    function hasDrawing() {
+        const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        for (let i = 0; i < data.length; i += 4) {
+            if (data[i] < 250 || data[i + 1] < 250 || data[i + 2] < 250) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function sendImage(){
+        if (!hasDrawing()) {
+            alert("Canvas is empty. Please draw a digit first.");
+            return;
+        }
+
         var image = canvas.toDataURL("image/png");
+        const csrfToken = getCsrfToken();
 
         fetch("{% url 'predict' %}",{
             method:"POST",
             headers:{
                 "Content-Type":"application/x-www-form-urlencoded",
-                "X-CSRFToken" : "{{ csrf_token }}"
+                "X-CSRFToken" : csrfToken
             },
+            credentials: "same-origin",
             body : "image=" + encodeURIComponent(image)
         })
         .then(response => response.json())

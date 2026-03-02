@@ -1,5 +1,5 @@
 import random
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -24,6 +24,7 @@ NUMBER_TO_TEXT = {
 def home(request):
 	return render(request, "digit/home.html")
 
+@ensure_csrf_cookie
 def scribble(request):
 	if request.GET.get("restart") == "1":
 		request.session.pop("game_id", None)

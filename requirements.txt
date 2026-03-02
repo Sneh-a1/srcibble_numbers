@@ -6,3 +6,4 @@ numpy==1.26.4
 Pillow==11.3.0
 tensorflow==2.15.0
 gunicorn==25.1.0
+dotenv
